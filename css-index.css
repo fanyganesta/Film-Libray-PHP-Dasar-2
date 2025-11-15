@@ -1,0 +1,25 @@
+th, td{
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+.tdExclude {
+    text-align:left;
+}
+
+table{
+    border-spacing:0;
+}
+
+.message, .error {
+    font-style: italic;
+}
+
+.message {
+    color: green;
+}
+
+.error {
+    color: red;
+}

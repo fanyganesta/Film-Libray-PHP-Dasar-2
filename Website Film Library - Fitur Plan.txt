@@ -1,3 +1,4 @@
+*MAIN PLAN
 1. Pembuatan database dan mengisi 10 data list film
 	i. Nama Database => filmlibrary
 	ii. Nama nama kolom dalam 'filmlibrary
@@ -29,6 +30,9 @@
 	3. Buat fitur Remember Me dan Auto Login menggunakan COOKIE
 	4. Buat fitur logout
 
+
+
+
 *NOTE:
 1. Database
 	1. 'id' int PRIMARY KEY AUTO_INCREMENT
@@ -55,3 +59,47 @@
 		-> UPDATE datafilm SET colom1 = value1, colom2 = value2 WHERE id = id_data; 
 	f. ADD COLUMN
 		-> ALTER TABLE datafilm ADD COLUMN nama_column TIPE_DATA(Panjang);
+3. Paginasi
+	a. Batasi query dengan LIMIT $index_awal $jumlah_data_tampil
+	b. Jika $_GET['halaman'] ada, maka $index_awal dirubah
+		-- Penentuan rumus
+		*misalkan perhalaman 5 data ditampilkan
+		1. Halaman 1 = index dari 0
+		2. Halaman 2 = index dari 5
+		3. Halaman 3 = index dari 10
+		dst ...
+
+		-- Analisa 1
+		1 ... 5 = 0
+		2 ... 5 = 5
+		3 ... 5 = 10
+
+		operator apa yang cocok untuk ... ?? apakah +, -, *, atau / ??
+		
+		-- Analisa 2
+		1 * 5 = 5  -> harusnya 0            1 * 5 = 5 - 5
+		2 * 5 = 10 -> harusnya 5    jadi -> 2 * 5 = 10 - 5
+		3 * 5 = 15 -> harusnya 10			3 * 5 = 15 - 5
+
+		-- Analisa 3
+		(1 * 5) - 5 = 0
+		(2 * 5) - 5 = 10   
+		(3 * 5) - 5 = 15
+
+		-- Hasil Akhir
+		$index_awal = $halaman * $jumlah_data_tampil - $jumlah_data_tampil
+	
+	c. Tambah navigasi untuk berpindah halaman
+		1. Ada berapa halaman?
+		2. Gunakan ceil(count($hasil_fetch_array_dari_query) / $jumlah_data_tampil), ceil adalah pembulatan ke atas
+		3. Gunakan for untuk menampilkan navigasi
+		4. Kirim data halaman menggunakan Get untuk merubah index index_awal
+		5. Kirim user ke halaman yang sama dengan '?halaman=$integer_navigasi
+		6. Amankan jika ada user nakal, memberi nilai pada "?halaman=" yang lebih kecil dari 1 misal -100, maka paksa agar tetap 1.		 
+
+
+
+
+*Additional:
+1. Bikin fungsi untuk query data agar bisa buat berulang kali di file lain dan panggil menggunakan require
+2. Pisahkan CSS ke file baru agar hmtl rapih
