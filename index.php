@@ -2,25 +2,16 @@
 
     require 'controller.php';
 
-    // Buat default query untuk menampilkan seluruh data film
-    $limit = 5;
-
-    // Ganti index berdasarkan halaman
-    if( isset($_GET['halaman']) < 1){
-        $halamanAktif = 1;
-    } else {
-        $halamanAktif = $_GET['halaman'] ?? 1;
+    // Jadikan proses untuk kebutuhan halaman ini di dalam controller.php
+    
+    $result = index($_POST) ?? false;
+    if ($result != false ){
+        $datas = $result['datas'];
+        $totalHalaman = $result['totalHalaman'];
+        $halamanAktif = $result['halamanAktif'];
     }
-    $index = $halamanAktif * $limit - $limit;
 
-    $queryAllFilms = "SELECT * FROM datafilm LIMIT $index, $limit";
-    $datas = query( $queryAllFilms );
-
-    // Hitung halaman total
-    $countAllFilms = query('SELECT * FROM datafilm');
-    $totalHalaman = ceil(count( $countAllFilms ) / $limit );
-
-    // Jadikan proses di dalam controller.php
+    // Jadikan proses untuk fitur pencarian di dalam controller.php
     if( isset( $_POST['cariButton'] )){
         $datas = cariData($_POST);
     }
@@ -75,18 +66,18 @@
         <?php endforeach ?>
 
         <!-- Tampilkan navigasi jika halaman lebih dari 1 -->
-         <?php if( $totalHalaman > 1 ) : ?>
+         <?php if( $totalHalaman > 1 && !isset($_POST['cariButton'])) : ?>
             <tr> 
                 <td colspan="5">
                     <!-- Hilangkan tombol ketika user di halaman pertama -->
                     <?php if( $halamanAktif > 1) : ?>
-                        <a href="?halaman=<?= $halamanAktif - 1 ?> "> &laquo; </a>
+                        <a href="index.php?halaman=<?= $halamanAktif - 1 ?> "> &laquo; </a>
                     <?php endif ?>
 
                     <!-- Ulangi sesuai halaman total -->
                     <?php for( $j = 1; $j <= $totalHalaman; $j++ ) : ?>
                         <?php if( $j != $halamanAktif ) : ?>
-                            <a href="?halaman=<?= $j; ?>"> <?= $j; ?> </a>
+                            <a href="index.php?halaman=<?= $j; ?>"> <?= $j; ?> </a>
                         <?php else : ?>
                             <p style="font-weight: bold; color: red; display: inline"> <?=$j?> </p>
                         <?php endif ?>
@@ -94,7 +85,7 @@
 
                     <!-- Hilangkan tombol ketika user di halaman terakhir -->
                     <?php if( $halamanAktif < $totalHalaman ) : ?>
-                        <a href="?halaman=<?= $halamanAktif + 1 ?>"> &raquo; </a>
+                        <a href="index.php?halaman=<?= $halamanAktif + 1 ?>"> &raquo; </a>
                     <?php endif ?>
                 </td>
             </tr>

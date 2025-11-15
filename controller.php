@@ -16,6 +16,36 @@
         return $rawDatas;
     }
 
+
+
+    // Untuk halaman index
+    function index($request) {
+
+        // Buat default query untuk menampilkan seluruh data film
+        $limit = 5;
+
+        // Ganti index berdasarkan halaman
+        if( isset($_GET['halaman']) < 1){
+            $halamanAktif = 1;
+        } else {
+            $halamanAktif = $_GET['halaman'] ?? 1;
+        }
+        $index = $halamanAktif * $limit - $limit;
+
+        $queryAllFilms = "SELECT * FROM datafilm LIMIT $index, $limit";
+        $datas = query( $queryAllFilms );
+
+        // Hitung halaman total
+        $countAllFilms = query('SELECT * FROM datafilm');
+        $totalHalaman = ceil(count( $countAllFilms ) / $limit );
+
+        $result =[ 'datas' => $datas, 'totalHalaman' => $totalHalaman, 'halamanAktif' => $halamanAktif];
+        return $result;
+    }
+
+
+
+    // Untuk fitur cari data
     function cariData($request){
         
         $key = $request['cariData'];
