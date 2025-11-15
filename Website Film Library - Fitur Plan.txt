@@ -1,0 +1,57 @@
+1. Pembuatan database dan mengisi 10 data list film
+	i. Nama Database => filmlibrary
+	ii. Nama nama kolom dalam 'filmlibrary
+		a. id -> primary_key
+		b. namaFilm -> varchar(100)
+		c. tahunTerbit -> date
+		d. deskripsiSingkat -> varchar(255)
+		e. rating -> varchar(100)
+	iii. Tambah 10 data list via CLI
+2. Pembuatan index.php yang berisi: 
+	i. Tabel tampilan list film dan Query film dari database
+	ii. Pengkondisian pesan (error maupun message berhasil)
+	iii. Paginasi list film dari database
+	iv. Buat fitur pencarian data
+	v. Buat fitur edit data
+	vi. Buat fitur hapus data
+3. Tambah fitur registrasi
+	i. Buat database users
+	ii. Buat halaman registrasi
+3. Tambah fitur login
+	1. Buat tampilan login
+	2. Buat logic login dan tetapkan SESSION di:
+		a. login.php
+		b. index.php
+		c. logout.php
+		d. tambah.php
+		e. edit.php
+		f. hapus.php
+	3. Buat fitur Remember Me dan Auto Login menggunakan COOKIE
+	4. Buat fitur logout
+
+*NOTE:
+1. Database
+	1. 'id' int PRIMARY KEY AUTO_INCREMENT
+	2. 'filmName' varchar(100)
+	3. 'tahunTerbit' date
+	4. 'descripsiSingkat' varchar(255)
+	5. 'rating' varchar(100) 
+2. Sintaks SQL
+	a. Create Database
+		-> CREATE DATABASE nama_database
+		-> use nama_database
+	b. Create Table
+		-> CREATE TABLE nama_tabel (
+			'nama_kolom1' tipe_data(panjang) atribut_lain
+			'id' int PRIMARY KEY AUTO_INCREMENT
+		)
+	c. Insert data
+		-> INSERT INTO nama_table VALUES (
+			'nama_kolom' = 'data',
+		)
+	d. Change data Table
+		-> ALTER TABLE nama_table CHANGE COLUMN old_name new_name tipe_data(panjang);
+	e. Update data Table
+		-> UPDATE datafilm SET colom1 = value1, colom2 = value2 WHERE id = id_data; 
+	f. ADD COLUMN
+		-> ALTER TABLE datafilm ADD COLUMN nama_column TIPE_DATA(Panjang);
