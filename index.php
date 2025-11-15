@@ -19,6 +19,11 @@
     // Hitung halaman total
     $countAllFilms = query('SELECT * FROM datafilm');
     $totalHalaman = ceil(count( $countAllFilms ) / $limit );
+
+    // Jadikan proses di dalam controller.php
+    if( isset( $_POST['cariButton'] )){
+        $datas = cariData($_POST);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +44,13 @@
     <?php endif ?>
 
     <h3> Selamat datang </h3>
+    <br>
+
+    <!-- Tambah fitur pencarian data -->
+    <form method="POST" action="">
+        <label for="cariData"> Cari Film: </label> <input type="text" id="cariData" name="cariData" value="<?php $key = $datas[0]['key'] ?? null; echo $key;?>">
+        <button type="submit" name="cariButton"> Cari </button>
+    </form>
     <br>
 
     <!-- Buat Tabel List Film -->
