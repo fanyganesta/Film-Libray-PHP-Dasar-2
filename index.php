@@ -35,8 +35,11 @@
     <?php endif ?>
 
     <h3> Selamat datang </h3>
+    
+    <!-- Tambah fitur tambah data -->
+    <a href="tambah.php"> Tambah data </a>
     <br>
-
+    <br>
     <!-- Tambah fitur pencarian data -->
     <form method="POST" action="">
         <label for="cariData"> Cari Film: </label> <input type="text" id="cariData" name="cariData" value="<?php $key = $datas[0]['key'] ?? null; echo $key;?>">
@@ -52,12 +55,18 @@
             <th> Deskripsi Singkat </th>
             <th> Tahun Terbit </th>
             <th> Rating (imdb) </th>
+            <th> Gambar </th>
         </tr>
 
         <!-- Tampilkan data dari database menggunakan foreach -->
         <?php foreach( $datas as $key => $value ) : ?>
             <tr> 
                 <td> <?= $key + 1  ?> </td>
+                <?php if(isset($value['img'])) : ?>
+                    <td> <img src="img/<?= $value['img']; ?>" alt="Gambar pengguna <?= $key + 1; ?>" width=100> </td>
+                <?php else : ?>
+                    <td> <p style="font-style: italic"> (Gambar belum ditambah) </p> </td>
+                <?php endif ?>
                 <td> <?= $value['namaFilm'] ?> </td>
                 <td class="tdExclude"> <?= $value['deskripsiSingkat'] ?> </td>
                 <td> <?= $value['tahunTerbit'] ?> </td>

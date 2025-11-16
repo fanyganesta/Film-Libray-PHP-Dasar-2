@@ -96,6 +96,22 @@
 		4. Kirim data halaman menggunakan Get untuk merubah index index_awal
 		5. Kirim user ke halaman yang sama dengan '?halaman=$integer_navigasi
 		6. Amankan jika ada user nakal, memberi nilai pada "?halaman=" yang lebih kecil dari 1 misal -100, maka paksa agar tetap 1.		 
+4. Fitur tambah data 
+	a. Tambahkan tombol
+	b. Siapkan form untuk tambah data
+	c. Siapkan pemrosesan data gambar
+		1. Cek ukuran file
+		2. Cek extensi file
+		3. Rubah nama file menjadi nama_file_lama-kode_acak_php
+		4. Jadikan pemrosesan file ke fungsi lain, agar bisa digunakan di tugas lain.
+		5. Jadikan nama file yang baru sebagai output fungsi file
+		6. Simpan file gambar di folder yang diinginkan
+		7. Kirim nama gambar untuk disimpan di database bersamaan dengan data lain
+	d. Perbaiki dan tambah tabel untuk gambar di index.php
+	e. Kirim 'message'/'error' ke index.php jika pemrosesan selesai
+5. Fitur edit
+	a. Bikin halaman editnya
+	b. Ambil data dari database sesuai id data yang dipilih
 
 
 

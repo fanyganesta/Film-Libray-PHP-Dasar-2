@@ -80,6 +80,67 @@
 
 
 
+    // Tambah function fitur tambah data
+    function tambah($requestPost, $requestFiles){
+        $namaFilm = $requestPost['namaFilm'];
+        $deskripsiSingkat = $requestPost['deskripsiSingkat'];
+        $tahunTerbit = $requestPost['tahunTerbit'];
+        $rating = $requestPost['rating'];
+        
+        // Perbolehkan gambar diisi null
+        $img = ( $requestFiles['file']['error'] == 4) ? 'null' : "'" . dataFiles($requestFiles['file']) . "'";
+        
+        // Masukkan hasil ke database
+        $query = "INSERT INTO datafilm VALUES (
+            '',
+            '$namaFilm',
+            '$deskripsiSingkat',
+            '$tahunTerbit',
+            '$rating',
+            $img
+        )";
+
+        global $db;
+        mysqli_query($db, $query);
+
+        header("Location: index.php?message=Data berhasil ditambahkan");
+    }
+
+
+
+
+    // Fungsi untuk memproses data file
+    function dataFiles($requestFiles){
+        $imgName = $requestFiles['name'];
+        $imgTmpName = $requestFiles['tmp_name'];
+        $imgError = $requestFiles['error'];
+        $imgSize = $requestFiles['size'];
+
+        // Ambil extensi dan nama file
+        $arrayName = explode('.', $imgName);
+        $pureName = $arrayName[0];
+        $fileExtention = end($arrayName);
+
+        // Extenti yang diperbolehkan
+        // $allowedExtention = ['jpeg', 'jpg', 'png', 'webp'];
+        $allowedExtention = ['webp'];
+        
+        // Cek ukuran agar tidak lebih dari 1mb
+        $maxBytes = 1000000;
+        if( $imgSize > $maxBytes ){
+            header("Location: tambah.php?error=Ukuran terlalu besar");
+            exit;
+
+        // Cek apakah extensi gambar benar
+        } else if ( !in_array( $fileExtention, $allowedExtention )){
+            header("Location: tambah.php?error=File tidak diperbolehkan");
+            exit;
+        }
+
+        $imgNewName = $pureName . uniqid($pureName) . '.' . $fileExtention;
+        move_uploaded_file($imgTmpName, 'img/' . $imgNewName);
+        return $imgNewName;
+    }
 
 
 ?>
