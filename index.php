@@ -77,7 +77,7 @@
                 <td> 
                     <a href="ubah.php?id=<?= $value['id']; ?>"> Ubah</a>
                     <p style="display:inline"> | </p>
-                    <a href="hapus.php?id=<?= $value['id']; ?>"> Hapus</a> 
+                    <a href="hapus.php?id=<?= $value['id']; ?>" onclick="return confirm('Apakah yakin untuk menghapus data ini?')"> Hapus</a> 
                 </td>
             </tr>
         <?php endforeach ?>

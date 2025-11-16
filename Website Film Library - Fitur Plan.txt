@@ -118,7 +118,11 @@
 	d. Timpa gambar lama dengan gambar baru jika file baru telah diupload
 	e. Update data dari database yang memiliki id dari hidden input
 	f. kembalikan ke halaman index dan beri pesan berhasil
-
+6. Fitur hapus	
+	a. Ubah tombol hapus agar sesuai edit
+	b. Kirim data id ke controller hapus
+	c. Berikan konfirmasi javascript
+	d. Kirim ke halaman index dengan pesan berhasil terhapus
 
 
 
