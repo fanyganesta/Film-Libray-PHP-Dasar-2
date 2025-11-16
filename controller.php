@@ -128,19 +128,64 @@
         // Cek ukuran agar tidak lebih dari 1mb
         $maxBytes = 1000000;
         if( $imgSize > $maxBytes ){
-            header("Location: tambah.php?error=Ukuran terlalu besar");
+            header("Location: index.php?error=Ukuran terlalu besar");
             exit;
 
         // Cek apakah extensi gambar benar
         } else if ( !in_array( $fileExtention, $allowedExtention )){
-            header("Location: tambah.php?error=File tidak diperbolehkan");
+            header("Location: index.php?error=File tidak diperbolehkan");
             exit;
         }
 
-        $imgNewName = $pureName . uniqid($pureName) . '.' . $fileExtention;
+        $imgNewName = uniqid($pureName . '-') . '.' . $fileExtention;
         move_uploaded_file($imgTmpName, 'img/' . $imgNewName);
         return $imgNewName;
     }
 
 
+
+    // Ambil data untuk dirubah
+    function ubahGetData($request){
+        $query = "SELECT * FROM datafilm WHERE id = $request";
+        $result = query($query)[0];
+        return $result;
+    }
+
+
+
+    // Simpan data yang dirubah
+    function ubahData($request, $requestFiles){
+        global $db;
+
+        $namaFilm = $request['namaFilm'];
+        $id = $request['id'];
+        $rating = $request['rating'];
+        $tahunTerbit = $request['tahunTerbit'];
+        $deskripsiSingkat = $request['deskripsiSingkat'];
+        $namaFilm = $request['namaFilm'];
+        $oldImg = $request['oldImg'];
+
+        // img = 'null' ketika oldImg null dan file null
+        // img = oldImg ketika file null
+        // img = file ketika file terisi
+
+        if($requestFiles['error'] == 0){
+            $img = "'" . dataFiles($requestFiles) . "'";
+        } elseif($requestFiles['error'] == 4){
+            $img = ($oldImg == '') ? 'NULL' : "'" . $oldImg . "'";
+        }
+
+        $query = "UPDATE datafilm SET 
+            namaFilm = '$namaFilm',
+            deskripsiSingkat = '$deskripsiSingkat',
+            tahunTerbit = '$tahunTerbit',
+            rating = '$rating',
+            img = $img
+            WHERE id = '$id'
+        ";
+
+        mysqli_query($db, $query);
+        header("Location: index.php?message=Data berhasil dirubah!");
+        exit;
+    }
 ?>

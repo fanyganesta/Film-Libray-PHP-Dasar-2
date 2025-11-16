@@ -13,8 +13,10 @@
 	ii. Pengkondisian pesan (error maupun message berhasil)
 	iii. Paginasi list film dari database
 	iv. Buat fitur pencarian data
-	v. Buat fitur edit data
-	vi. Buat fitur hapus data
+	v. Buat fitur tambah data
+	vi. Buat pemrosesan data file
+	vii. Buat fitur edit data
+	viii. Buat fitur hapus data
 3. Tambah fitur registrasi
 	i. Buat database users
 	ii. Buat halaman registrasi
@@ -112,6 +114,10 @@
 5. Fitur edit
 	a. Bikin halaman editnya
 	b. Ambil data dari database sesuai id data yang dipilih
+	c. Simpan id dan nama gambar ke hidden input untuk disimpan ulang
+	d. Timpa gambar lama dengan gambar baru jika file baru telah diupload
+	e. Update data dari database yang memiliki id dari hidden input
+	f. kembalikan ke halaman index dan beri pesan berhasil
 
 
 

@@ -37,7 +37,9 @@
     <h3> Selamat datang </h3>
     
     <!-- Tambah fitur tambah data -->
-    <a href="tambah.php"> Tambah data </a>
+    <a href="tambah.php"> Tambah data</a>
+    <p style="display: inline"> | </p>
+    <a href=""> Logout </a>
     <br>
     <br>
     <!-- Tambah fitur pencarian data -->
@@ -56,6 +58,7 @@
             <th> Tahun Terbit </th>
             <th> Rating (imdb) </th>
             <th> Gambar </th>
+            <th> Action </th>
         </tr>
 
         <!-- Tampilkan data dari database menggunakan foreach -->
@@ -63,7 +66,7 @@
             <tr> 
                 <td> <?= $key + 1  ?> </td>
                 <?php if(isset($value['img'])) : ?>
-                    <td> <img src="img/<?= $value['img']; ?>" alt="Gambar pengguna <?= $key + 1; ?>" width=100> </td>
+                    <td> <img src="img/<?= $value['img']; ?>" alt="Gambar film <?= $key + 1; ?>" width=100> </td>
                 <?php else : ?>
                     <td> <p style="font-style: italic"> (Gambar belum ditambah) </p> </td>
                 <?php endif ?>
@@ -71,22 +74,27 @@
                 <td class="tdExclude"> <?= $value['deskripsiSingkat'] ?> </td>
                 <td> <?= $value['tahunTerbit'] ?> </td>
                 <td> <?= $value['rating'] ?> </td>
+                <td> 
+                    <a href="ubah.php?id=<?= $value['id']; ?>"> Ubah</a>
+                    <p style="display:inline"> | </p>
+                    <a href="hapus.php?id=<?= $value['id']; ?>"> Hapus</a> 
+                </td>
             </tr>
         <?php endforeach ?>
 
         <!-- Tampilkan navigasi jika halaman lebih dari 1 -->
          <?php if( $totalHalaman > 1 && !isset($_POST['cariButton'])) : ?>
             <tr> 
-                <td colspan="5">
+                <td colspan="7">
                     <!-- Hilangkan tombol ketika user di halaman pertama -->
                     <?php if( $halamanAktif > 1) : ?>
-                        <a href="index.php?halaman=<?= $halamanAktif - 1 ?> "> &laquo; </a>
+                        <a href="index.php?halaman=<?= $halamanAktif - 1 ?> ">&laquo;</a>
                     <?php endif ?>
 
                     <!-- Ulangi sesuai halaman total -->
                     <?php for( $j = 1; $j <= $totalHalaman; $j++ ) : ?>
                         <?php if( $j != $halamanAktif ) : ?>
-                            <a href="index.php?halaman=<?= $j; ?>"> <?= $j; ?> </a>
+                            <a href="index.php?halaman=<?= $j; ?>"><?= $j; ?></a>
                         <?php else : ?>
                             <p style="font-weight: bold; color: red; display: inline"> <?=$j?> </p>
                         <?php endif ?>
@@ -94,7 +102,7 @@
 
                     <!-- Hilangkan tombol ketika user di halaman terakhir -->
                     <?php if( $halamanAktif < $totalHalaman ) : ?>
-                        <a href="index.php?halaman=<?= $halamanAktif + 1 ?>"> &raquo; </a>
+                        <a href="index.php?halaman=<?= $halamanAktif + 1 ?>">&raquo;</a>
                     <?php endif ?>
                 </td>
             </tr>

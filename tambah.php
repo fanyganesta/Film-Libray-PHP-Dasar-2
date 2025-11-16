@@ -19,6 +19,8 @@
     <?php endif ?>
 
     <h3> Tambah data baru </h3>
+    <a href="index.php"> Kembali ke beranda </a>
+    <br><br>
 
     <form action="" method="POST" enctype="multipart/form-data" autocomplete="off"> 
         <table> 
