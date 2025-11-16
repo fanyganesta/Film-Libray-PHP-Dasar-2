@@ -20,6 +20,7 @@
 3. Tambah fitur registrasi
 	i. Buat database users
 	ii. Buat halaman registrasi
+	iii. Buat pemrosesan data registrasi
 3. Tambah fitur login
 	1. Buat tampilan login
 	2. Buat logic login dan tetapkan SESSION di:
@@ -61,6 +62,8 @@
 		-> UPDATE datafilm SET colom1 = value1, colom2 = value2 WHERE id = id_data; 
 	f. ADD COLUMN
 		-> ALTER TABLE datafilm ADD COLUMN nama_column TIPE_DATA(Panjang);
+	g. Rename nama tabel	
+		-> ALER TABLE old_name RENAME TO new_name;
 3. Paginasi
 	a. Batasi query dengan LIMIT $index_awal $jumlah_data_tampil
 	b. Jika $_GET['halaman'] ada, maka $index_awal dirubah

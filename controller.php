@@ -157,13 +157,14 @@
     function ubahData($request, $requestFiles){
         global $db;
 
-        $namaFilm = $request['namaFilm'];
-        $id = $request['id'];
-        $rating = $request['rating'];
-        $tahunTerbit = $request['tahunTerbit'];
-        $deskripsiSingkat = $request['deskripsiSingkat'];
-        $namaFilm = $request['namaFilm'];
-        $oldImg = $request['oldImg'];
+        // Beri sedikit keamanan
+        $namaFilm = htmlspecialchars($request['namaFilm']);
+        $id = htmlspecialchars($request['id']);
+        $rating = htmlspecialchars($request['rating']);
+        $tahunTerbit = htmlspecialchars($request['tahunTerbit']);
+        $deskripsiSingkat = htmlspecialchars($request['deskripsiSingkat']);
+        $namaFilm = htmlspecialchars($request['namaFilm']);
+        $oldImg = htmlspecialchars($request['oldImg']);
 
         // img = 'null' ketika oldImg null dan file null
         // img = oldImg ketika file null
@@ -186,6 +187,39 @@
 
         mysqli_query($db, $query);
         header("Location: index.php?message=Data berhasil dirubah!");
+        exit;
+    }
+
+
+
+    // Tambah fitur register
+    function registerUser($request){
+        global $db;
+
+        // Beri sedikit keamanan
+        $username = htmlspecialchars(strtolower($request['username']));
+        $password = mysqli_real_escape_string($db, $request['password']);
+        $passwordKonfirmasi = mysqli_real_escape_string($db, $request['passwordKonfirmasi']);
+
+        // Cek apakah password = passwordKonfirmasi
+        ($password != $passwordKonfirmasi) ?
+        header("Location: ?error=Password dan Konfirmasi Password anda berbeda!") : null;
+
+        // Cek apakah user sudah ada dalam database?
+        $query = "SELECT * FROM users WHERE username = '$username'";
+        $result = query($query);
+
+        ( count($result) > 0 ) ? 
+        header("Location: ?error=Username sudah pernah digunakan, silahkan ganti!") : null;
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        mysqli_query($db, "INSERT INTO users VALUES(
+            '',
+            '$username',
+            '$password'
+        )");
+
+        header("Location: index.php?message=User berhasil ditambahkan");
         exit;
     }
 ?>
