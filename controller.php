@@ -216,10 +216,10 @@
         mysqli_query($db, "INSERT INTO users VALUES(
             '',
             '$username',
-            '$password'
+            '$hashedPassword'
         )");
 
-        header("Location: index.php?message=User berhasil ditambahkan");
+        header("Location: login.php?message=User berhasil ditambahkan");
         exit;
     }
 ?>
