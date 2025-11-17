@@ -1,8 +1,9 @@
 <?php 
     require 'controller.php';
-
     ( isset( $_POST['tambah'] ) ) ? $result = tambah($_POST, $_FILES) : 0 ;
 
+    // Check user login
+    checkLogin('username');
 ?>
 
 <!DOCTYPE html>

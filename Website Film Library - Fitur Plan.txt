@@ -126,9 +126,20 @@
 	b. Kirim data id ke controller hapus
 	c. Berikan konfirmasi javascript
 	d. Kirim ke halaman index dengan pesan berhasil terhapus
+7. Fitur login
+	a. Cek apakah username ada di database
+	b. Ambil password user dan gunakan password_verify dibandingkan dengan password input user
+	c. Jika password salah, kembalikan ke halaman login.php
+	d. Aktifkan Session dengan username sebagai acuan
+8. Tambah fitur Remember me
+	a. Jika rememberme aktif, maka buat session sekaligus buat COOKIE
+	b. Buat Cookie dari id user dan hashed_username
+	c. bandingkan hashed_username dengan username database sesuai id 
+	d. Coba beri expired 30 detik pada cookie 
 
 
 
 *Additional:
 1. Bikin fungsi untuk query data agar bisa buat berulang kali di file lain dan panggil menggunakan require
 2. Pisahkan CSS ke file baru agar hmtl rapih
+3. Untuk mengambil data yang aman dari database, gunakan prepared statement.

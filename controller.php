@@ -222,4 +222,59 @@
         header("Location: login.php?message=User berhasil ditambahkan");
         exit;
     }
+
+
+
+
+    // Fitur login
+    function login($request){
+        global $db;
+        $username = [$request['username']];
+        $password = $request['password'];
+
+        // Cek keberadaan username dari input user menggunakan prepare statement
+        $query = "SELECT password, username FROM users WHERE username = ?";
+        $prepQuery = $db->prepare($query);
+        $prepQuery->execute($username);
+        $result = $prepQuery->get_result();
+        $rows = $result->fetch_assoc();
+
+        if(!$rows){
+            header("Location: ?error=Username atau Password salah!");
+            exit;
+        }
+
+        // Cek apakah password benar
+        $dbPassword = $rows['password'];
+        $pwCheck = password_verify($password, $dbPassword);
+        if($pwCheck == false){
+            header("Location: ?error=Username atau Password anda salah!");
+            exit;
+        }
+
+        // Set session by username;
+        session_start();
+
+        $_SESSION['username'] = $username;
+        header("Location: index.php?message=Anda berhasil login!");
+        exit;
+    }
+
+
+
+
+
+    // Persingkat untuk pengecekan user apakah sudah login tiap halaman
+    function checkLogin($request){
+        session_start();
+        if(!isset($_SESSION[$request])){
+            header("Location: login.php?error=Anda harus login dahulu!");
+            exit;
+        }
+    }
+
+
+
+
+    
 ?>

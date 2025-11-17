@@ -1,6 +1,13 @@
 <?php 
+    require 'controller.php';
+    (isset($_POST['login'])) ? login($_POST) : null;
 
-
+    // Check apakah user login?
+    session_start();
+    if(isset($_SESSION['username'])){
+        header("Location: index.php?error=Logout dahulu!");
+        exit;
+    }
 ?>
 
 
@@ -13,6 +20,8 @@
 
     <?php if(isset($_GET['message'])) : ?>
         <p style="color: green; font-style:italic"> <?= $_GET['message']; ?></p>
+    <?php elseif(isset($_GET['error'])) : ?>
+        <p style="color: red; font-style: italic"> <?=$_GET['error']; ?></p>
     <?php endif ?>
 
     <h3> Selamat datang, silahkan login dahulu </h3>

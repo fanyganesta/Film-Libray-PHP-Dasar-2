@@ -1,6 +1,6 @@
 <?php 
-
     require 'controller.php';
+    checkLogin('username');
 
     // Jadikan proses untuk kebutuhan halaman ini di dalam controller.php
     
@@ -39,7 +39,7 @@
     <!-- Tambah fitur tambah data -->
     <a href="tambah.php"> Tambah data</a>
     <p style="display: inline"> | </p>
-    <a href=""> Logout </a>
+    <a href="logout.php"> Logout </a>
     <br>
     <br>
     <!-- Tambah fitur pencarian data -->

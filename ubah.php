@@ -1,11 +1,17 @@
 <?php 
     require 'controller.php';
+
+    // Check login user
+    checkLogin('username');
+    
     (isset($_GET['id'])) ? 
     $result = ubahGetData($_GET['id']) : 
     header("Location: index.php?error=Pilih film yang akan dirubah!");
 
     (isset($_POST['ubahData'])) ?
     ubahData($_POST, $_FILES['file']) : null;
+
+
 ?>
 
 <!DOCTYPE html>

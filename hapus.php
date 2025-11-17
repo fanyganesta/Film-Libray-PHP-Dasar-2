@@ -1,5 +1,8 @@
 <?php 
     require 'controller.php';
+    // Cek user login
+    checkLogin('username');
+    
     // Cek apakah user membuka halaman hapus secara langsung
     (isset($_GET['id'])) ? hapusData($_GET['id']) :
     header("Location: index.php?error=Pilih data yang akan dihapus!");
