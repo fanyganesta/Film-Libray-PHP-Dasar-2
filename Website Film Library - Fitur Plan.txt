@@ -136,6 +136,18 @@
 	b. Buat Cookie dari id user dan hashed_username
 	c. bandingkan hashed_username dengan username database sesuai id 
 	d. Coba beri expired 30 detik pada cookie 
+9. Tambah Remember Me
+	a. Buat checkbox untuk Remember Me di login
+	b. Jika aktif, simpan id dan hashed username di COOKIE untuk 1 menit
+	c. Lakukan jika hanya user berhasil login
+	d. Proses jika remember me aktif 
+		1. setcookie id
+		2. setcookie hashedUsername
+		3. hashedUsername = hash('sha512', $username)
+		4. setcookie 60 menit
+		5. cek di login sistem apakah ada cookie
+		6. jika ada cookie hashedUsername, ambil user by id
+		7. 
 
 
 

@@ -231,9 +231,10 @@
         global $db;
         $username = [$request['username']];
         $password = $request['password'];
+        $rememberme = (isset($request['rememberme'])) ?? false;
 
         // Cek keberadaan username dari input user menggunakan prepare statement
-        $query = "SELECT password, username FROM users WHERE username = ?";
+        $query = "SELECT id, password, username FROM users WHERE username = ?";
         $prepQuery = $db->prepare($query);
         $prepQuery->execute($username);
         $result = $prepQuery->get_result();
@@ -255,9 +256,19 @@
         // Set session by username;
         session_start();
 
-        $_SESSION['username'] = $username;
-        header("Location: index.php?message=Anda berhasil login!");
-        exit;
+        if($rememberme == true){
+            setcookie('id', $rows['id'], time() + 60);
+            $key = hash('sha512', $rows['username']);
+            setcookie('key', $key, time() + 60);
+
+            $_SESSION['username'] = $username;
+            header("Location: index.php?message=Anda berhasil login!");
+            exit;
+        }else{
+            $_SESSION['username'] = $username;
+            header("Location: index.php?message=Anda berhasil login!");
+            exit;
+        }
     }
 
 
@@ -267,9 +278,26 @@
     // Persingkat untuk pengecekan user apakah sudah login tiap halaman
     function checkLogin($request){
         session_start();
-        if(!isset($_SESSION[$request])){
+        if(!isset($_SESSION[$request]) && !isset($_COOKIE['id'])){
             header("Location: login.php?error=Anda harus login dahulu!");
             exit;
+        } elseif (isset($_COOKIE['id']) && isset($_COOKIE['key'])){
+            global $db;
+            $id = [$_COOKIE['id']];
+            $key = $_COOKIE['key'];
+
+            $query = "SELECT username FROM users WHERE id = ?";
+            $prepQuery = $db->prepare($query);
+            $prepQuery->execute($id);
+            $preResult = $prepQuery->get_result();
+            $result = $preResult->fetch_assoc()['username'];
+
+            if($key == hash('sha512', $result)){
+                $_SESSION['username'] = $result;
+            }else{
+                header("Location: login.php?error=Anda tidak punya akses!");
+                exit;
+            }
         }
     }
 

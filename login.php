@@ -38,6 +38,11 @@
                 <td> <label for="password"> Password:</label> </td>
                 <td> <input type="password" name="password" id="password" required> </td>
             </tr>
+            <tr> 
+                <td colspan="2" style="text-align: center; padding-top: 3px">
+                    <input type="checkbox" name="rememberme" id="rememberme"> <label for="rememberme"> Remember Me</label>
+                </td>
+            </tr> 
             <tr>
                 <td colspan="2" style="text-align:center; padding-top: 7px">
                     <button type="submit" name="login"> Login </button>
